@@ -142,8 +142,8 @@ ehthumbs.db
 Thumbs.db
 
 # Project specific test outputs / EML samples that shouldn't be committed
-*.eml
-*.html
-*.pdf
-*-attachments/
-extracted/
+/*.eml
+/*.html
+/*.pdf
+/*-attachments/
+/extracted/

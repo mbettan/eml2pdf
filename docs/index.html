@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eml2pdf — Premium Email-to-PDF Archival Engine</title>
+    <meta name="description" content="Convert EML email files to archive-grade PDF documents with 100% layout accuracy, image embedding, attachment extraction, and parallel batch processing.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- BACK BUTTON / TOP NAVIGATION HOME -->
+    <a href="https://github.com/mbettan/eml2pdf" class="back-button" title="View on GitHub">
+        <i class="fab fa-github"></i>
+    </a>
+
+    <div class="page-wrapper">
+        
+        <!-- HERO / COVER SECTION -->
+        <div class="cover">
+            <div class="cover-grid"></div>
+            <div class="cover-content">
+                <span class="cover-eyebrow">
+                    <span class="pulse-ring"></span>
+                    PRODUCTION READY • V1.1.0
+                </span>
+                <h1>High-Fidelity <em>EML-to-PDF</em> Archival Engine</h1>
+                <p class="cover-subtitle">
+                    A premium, modern CLI tool and Python library engineered to convert EML email files into PDF documents with absolute layout preservation, inline image embedding, robust security sanitization, and parallel batch processing.
+                </p>
+                <div class="cover-meta">
+                    <div class="cover-meta-item">
+                        <i class="fas fa-code-branch"></i>
+                        Engine: <strong>WeasyPrint Backend</strong>
+                    </div>
+                    <div class="cover-meta-item">
+                        <i class="fas fa-shield-halved"></i>
+                        Security: <strong>HTML Sanitization Active</strong>
+                    </div>
+                    <div class="cover-meta-item">
+                        <i class="fas fa-bolt"></i>
+                        Parallel Mode: <strong>Multiprocessing Enabled</strong>
+                    </div>
+                    <div class="cover-meta-item">
+                        <i class="fas fa-signature"></i>
+                        Author: <strong>Michaël BETTAN</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABLE OF CONTENTS -->
+        <div class="toc">
+            <div class="toc-header">
+                <i class="fas fa-list"></i>
+                <h2>Interactive Documentation Index</h2>
+            </div>
+            <div class="toc-columns">
+                <a href="#overview" class="toc-item">
+                    <span class="toc-number">01</span>
+                    Overview & Features
+                </a>
+                <a href="#installation" class="toc-item">
+                    <span class="toc-number">02</span>
+                    Quick Start & Installation
+                </a>
+                <a href="#cli" class="toc-item">
+                    <span class="toc-number">03</span>
+                    CLI Subcommands & API
+                </a>
+                <a href="#library" class="toc-item">
+                    <span class="toc-number">04</span>
+                    Python Library Usage
+                </a>
+                <a href="#security" class="toc-item">
+                    <span class="toc-number">05</span>
+                    Security Architecture
+                </a>
+                <a href="#features-bento" class="toc-item">
+                    <span class="toc-number">06</span>
+                    Technical Innovations
+                </a>
+            </div>
+        </div>
+
+        <!-- SECTION 1: OVERVIEW -->
+        <div class="section-divider" id="overview">
+            <span class="section-divider-number">01</span>
+            <h2>Overview & Core Values</h2>
+        </div>
+
+        <div class="two-columns">
+            <div class="concept-card accent-mint">
+                <h3>
+                    <div class="icon-badge"><i class="fas fa-eye"></i></div>
+                    Visual Fidelity
+                </h3>
+                <p>
+                    Preserves CSS layouts, complex tables, responsive email structures, and inline styles using WeasyPrint's standards-based CSS paged media rendering instead of fragile screenshot wrappers.
+                </p>
+            </div>
+            <div class="concept-card accent-purple">
+                <h3>
+                    <div class="icon-badge"><i class="fas fa-shield-alt"></i></div>
+                    Privacy First
+                </h3>
+                <p>
+                    Strict local sandboxing blocks external HTTP fetches by default to prevent trackers and tracking pixels from calling home during archival tasks.
+                </p>
+            </div>
+        </div>
+
+        <!-- SECTION 2: INSTALLATION -->
+        <div class="section-divider" id="installation">
+            <span class="section-divider-number">02</span>
+            <h2>Quick Start & System Requirements</h2>
+        </div>
+
+        <div class="prose">
+            <p>
+                <strong>eml2pdf</strong> relies on WeasyPrint for PDF compilation. To guarantee premium typography, font layouts, and vector output, install the following system libraries:
+            </p>
+        </div>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-lang">macOS (Homebrew)</span>
+                <i class="fas fa-terminal"></i>
+            </div>
+            <pre>brew install cairo pango gdk-pixbuf libffi</pre>
+        </div>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-lang">Linux (Ubuntu/Debian)</span>
+                <i class="fas fa-terminal"></i>
+            </div>
+            <pre>sudo apt-get install libcairo2 libpango-1.0-0 libgdk-pixbuf2.0-0 libffi-dev shared-mime-info</pre>
+        </div>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-lang">Python Installation</span>
+                <i class="fas fa-terminal"></i>
+            </div>
+            <pre>pip install eml2pdf
+# Or manually from source:
+pip install -r requirements.txt</pre>
+        </div>
+
+        <!-- SECTION 3: CLI SUBCOMMANDS -->
+        <div class="section-divider" id="cli">
+            <span class="section-divider-number">03</span>
+            <h2>CLI Subcommands & Options</h2>
+        </div>
+
+        <div class="prose">
+            <p>
+                The modern interface splits operations into subcommands to handle single conversions or heavy parallel batch operations cleanly.
+            </p>
+        </div>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-lang">Convert Single EML</span>
+                <i class="fas fa-terminal"></i>
+            </div>
+            <pre>python eml2pdf.py convert_file email.eml output.pdf</pre>
+        </div>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-lang">Batch Directory Conversion</span>
+                <i class="fas fa-terminal"></i>
+            </div>
+            <pre>python eml2pdf.py convert_dir ./emails/ ./pdfs/ --smart-naming -n 4</pre>
+        </div>
+
+        <div class="concept-card accent-blue">
+            <h3>
+                <div class="icon-badge"><i class="fas fa-sliders-h"></i></div>
+                Shared Rendering Options
+            </h3>
+            <ul>
+                <li><code>-p, --page SIZE</code> — Page dimensions like "a4", "letter", or "letter landscape"</li>
+                <li><code>-hh, --hide-headers</code> — Suppresses the structured email header box block</li>
+                <li><code>-a, --extract-attachments</code> — Automatically extracts attachments to dedicated folders</li>
+                <li><code>-aa, --add-attachment-names</code> — Generates an attachment overview table at the footer with **MD5 Checksums**</li>
+                <li><code>--unsafe</code> — Disables HTML sanitization and allows external remote image resolution</li>
+                <li><code>--skip-ssl-verification</code> — Bypasses SSL certificate validation for legacy remote trackers/servers</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 4: PYTHON LIBRARY -->
+        <div class="section-divider" id="library">
+            <span class="section-divider-number">04</span>
+            <h2>Python Library Integration API</h2>
+        </div>
+
+        <div class="prose">
+            <p>
+                Use <strong>eml2pdf</strong> directly within your internal applications or custom data ingestion lines.
+            </p>
+        </div>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-lang">Python</span>
+                <i class="fab fa-python"></i>
+            </div>
+            <pre>from eml2pdf import EmailToPDFConverter
+
+# Configure a premium converter
+converter = EmailToPDFConverter(
+    page_size="letter landscape",
+    dpi=300,
+    add_attachment_names=True,
+    extract_attachments=True
+)
+
+# Convert a single EML
+converter.convert("newsletter.eml", "newsletter.pdf")
+
+# Execute a high-performance parallel batch conversion
+stats = converter.convert_directory(
+    input_dir="./archive/eml",
+    output_dir="./archive/pdf",
+    num_procs=4,
+    smart_naming=True
+)
+print(f"Successfully archived {stats['success']} emails.")</pre>
+        </div>
+
+        <!-- SECTION 5: SECURITY ARCHITECTURE -->
+        <div class="section-divider" id="security">
+            <span class="section-divider-number">05</span>
+            <h2>Security & Sandboxing Isolation</h2>
+        </div>
+
+        <div class="diagram-block">
+            <div class="diagram-title">
+                <i class="fas fa-project-diagram"></i>
+                Secure Data Flow & Isolation Loop
+            </div>
+            <div class="architecture-flow">
+                <div class="arch-node input">
+                    <i class="fas fa-envelope-open"></i>
+                    Raw EML Input
+                </div>
+                <div class="arch-arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
+                <div class="arch-node process">
+                    <i class="fas fa-broom"></i>
+                    Decompose Unsafe Tags
+                </div>
+                <div class="arch-arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
+                <div class="arch-node storage">
+                    <i class="fas fa-lock"></i>
+                    Sandbox Fetcher
+                </div>
+                <div class="arch-arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
+                <div class="arch-node output">
+                    <i class="fas fa-file-pdf"></i>
+                    Archive PDF
+                </div>
+            </div>
+        </div>
+
+        <div class="callout info">
+            <div class="callout-icon">
+                <i class="fas fa-info-circle"></i>
+            </div>
+            <div class="callout-content">
+                <h4>Sanitization Safeguard</h4>
+                <p>
+                    The HTML parser strips script elements, inline iframe frames, embedded plugin objects, and all <code>on*</code> event handlers automatically, preventing XSS vectors inside rendered PDF files.
+                </p>
+            </div>
+        </div>
+
+        <!-- SECTION 6: TECHNICAL INNOVATIONS -->
+        <div class="section-divider" id="features-bento">
+            <span class="section-divider-number">06</span>
+            <h2>Technical Architecture Bento</h2>
+        </div>
+
+        <!-- Bento Box Grid -->
+        <div class="bento-grid">
+            <div class="bento bento-a">
+                <div class="bento-icon bento-icon-blue">
+                    <i class="fas fa-image"></i>
+                </div>
+                <h3>Base64 CID Embedding</h3>
+                <p>
+                    Resolves local <code>cid:</code> inline attachments from MIME structures and embeds them directly as highly compressed inline Base64 images, guaranteeing 100% offline portability of the PDF without broken resource blocks.
+                </p>
+            </div>
+
+            <div class="bento bento-b">
+                <div class="bento-icon bento-icon-violet">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <h3>Parallel Processing</h3>
+                <p>
+                    Spins up a multi-core `multiprocessing` Pool to slice and convert folders containing thousands of EML files simultaneously.
+                </p>
+            </div>
+
+            <div class="bento bento-c">
+                <div class="bento-icon bento-icon-green">
+                    <i class="fas fa-signature"></i>
+                </div>
+                <h3>Sortable Naming</h3>
+                <p>
+                    Uses a deterministic <code>{YYYY-MM-DD}-{subject}.pdf</code> smart-naming pattern with filesystem character-sanitization and collision-safeguards.
+                </p>
+            </div>
+
+            <div class="bento bento-d">
+                <div class="bento-icon bento-icon-amber">
+                    <i class="fas fa-infinity"></i>
+                </div>
+                <h3>Layout Hang Fixes</h3>
+                <p>
+                    Injects CSS properties to dynamically override infinite layout loops caused by nested percentage height alignments, preventing WeasyPrint hangs.
+                </p>
+            </div>
+
+            <div class="bento bento-e">
+                <div class="bento-icon bento-icon-blue">
+                    <i class="fab fa-markdown"></i>
+                </div>
+                <h3>Markdown Fallback</h3>
+                <p>
+                    When emails have no HTML part, the engine dynamically renders the plain-text body using Markdown conversion rules for clean visual structure.
+                </p>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="page-footer">
+            <p>
+                Designed with premium typography and dark glassmorphic aesthetics for **eml2pdf**.
+            </p>
+            <p>
+                Copyright © 2026 <a href="https://github.com/mbettan">Michaël BETTAN</a>. Distributed under the MIT License.
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>
