@@ -7,112 +7,98 @@
   <meta name="description" content="Convert EML email files to archive-grade PDF documents with 100% layout accuracy, image embedding, attachment extraction, and parallel batch processing.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* ══════════════════════════════════════════════
-       CSS VARIABLES — Matching premium dark aesthetics
-       ══════════════════════════════════════════════ */
+    /* ═══════════════════════════════════════
+       DESIGN TOKENS (Glassmorphic Premium Dark)
+     ═══════════════════════════════════════ */
     :root {
-      --obsidian: #080B12;
-      --card-bg: #0F1320;
-      --card-bg-alt: #111627;
-      --card-border: #1C2233;
-      --card-hover: #141929;
+      --obsidian:       #080B12;
+      --card-bg:        #0F1320;
+      --card-bg-alt:    #111627;
+      --card-border:    #1C2233;
       --surface-raised: #161B2E;
       --surface-sunken: #0A0E18;
 
-      --mint: #00E8A0;
-      --mint-dim: rgba(0, 232, 160, 0.10);
-      --mint-medium: rgba(0, 232, 160, 0.18);
-      --mint-hover: #00C887;
+      --mint:           #00E8A0;
+      --mint-dim:       rgba(0, 232, 160, 0.10);
+      --mint-medium:    rgba(0, 232, 160, 0.18);
+      --mint-hover:     #00C887;
 
-      --purple: #B882FF;
-      --purple-dim: rgba(184, 130, 255, 0.10);
-      --purple-medium: rgba(184, 130, 255, 0.18);
-      --purple-hover: #A060FF;
+      --purple:         #B882FF;
+      --purple-dim:     rgba(184, 130, 255, 0.10);
+      --purple-medium:  rgba(184, 130, 255, 0.18);
+      --purple-hover:   #A060FF;
 
-      --amber: #F59E0B;
-      --amber-dim: rgba(245, 158, 11, 0.10);
-      --amber-medium: rgba(245, 158, 11, 0.18);
+      --amber:          #F59E0B;
+      --amber-dim:      rgba(245, 158, 11, 0.10);
+      --amber-medium:   rgba(245, 158, 11, 0.18);
 
-      --coral: #FF6B6B;
-      --coral-dim: rgba(255, 107, 107, 0.10);
+      --coral:          #FF6B6B;
+      --coral-dim:      rgba(255, 107, 107, 0.10);
 
-      --pink: #F472B6;
-      --pink-dim: rgba(244, 114, 182, 0.10);
-      --pink-medium: rgba(244, 114, 182, 0.18);
+      --pink:           #F472B6;
+      --pink-dim:       rgba(244, 114, 182, 0.10);
 
-      --blue: #60A5FA;
-      --blue-dim: rgba(96, 165, 250, 0.10);
-      --blue-medium: rgba(96, 165, 250, 0.18);
+      --blue:           #60A5FA;
+      --blue-dim:       rgba(96, 165, 250, 0.10);
+      --blue-medium:    rgba(96, 165, 250, 0.18);
 
-      --cyan: #22D3EE;
-      --cyan-dim: rgba(34, 211, 238, 0.10);
+      --cyan:           #22D3EE;
+      --cyan-dim:       rgba(34, 211, 238, 0.10);
 
-      --text-primary: #E2E8F0;
-      --text-secondary: #8892A4;
-      --text-tertiary: #5A6478;
-      --text-inverse: #080B12;
+      --bg-base:        var(--obsidian);
+      --bg-surface:     var(--card-bg);
+      --bg-elevated:    var(--surface-raised);
+      --bg-overlay:     rgba(8, 11, 18, 0.75);
 
-      --font-serif: 'Playfair Display', Georgia, serif;
-      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --primary:        var(--mint);
+      --primary-glow:   rgba(0, 232, 160, 0.25);
+      --secondary:      var(--purple);
+      --accent:         var(--mint);
 
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
-      --radius-xl: 20px;
-      --radius-pill: 9999px;
+      --text-100:       #E2E8F0;
+      --text-200:       #CBD5E1;
+      --text-400:       #8892A4;
+      --text-600:       #5A6478;
 
-      --shadow-subtle: 0 1px 3px rgba(0,0,0,0.3);
-      --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
-      --shadow-elevated: 0 12px 48px rgba(0,0,0,0.5);
-      --shadow-glow: 0 0 60px rgba(0,232,160,0.15);
+      --border-subtle:  var(--card-border);
+      --border-medium:  rgba(28, 34, 51, 0.6);
+      --border-strong:  rgba(0, 232, 160, 0.2);
+
+      --radius-sm:      8px;
+      --radius-md:      12px;
+      --radius-lg:      16px;
+      --radius-xl:      20px;
+      --radius-pill:    100px;
+
+      --shadow-sm:  0 2px 8px rgba(0,0,0,0.4);
+      --shadow-md:  0 4px 24px rgba(0,0,0,0.5);
+      --shadow-lg:  0 12px 48px rgba(0,0,0,0.6);
+      --shadow-glow: 0 0 60px rgba(0,232,160,0.08);
 
       --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    /* ── CUSTOM SCROLLBAR ── */
-    * {
-      scrollbar-width: thin;
-      scrollbar-color: var(--mint) var(--obsidian);
+    /* ═══════════════════════════════════════
+       RESET & BASE
+      ═══════════════════════════════════════ */
+    *, *::before, *::after {
+      margin: 0; padding: 0;
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--obsidian);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: var(--mint);
-      border-radius: 3px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--mint-hover);
-    }
-
-    html {
-      scroll-behavior: smooth;
-      font-size: 16px;
-    }
-
-    body {
-      font-family: var(--font-sans);
-      background-color: var(--obsidian);
-      color: var(--text-primary);
-      line-height: 1.7;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-base);
+      color: var(--text-100);
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.65;
       overflow-x: hidden;
     }
 
@@ -126,12 +112,12 @@
     }
 
     .mono {
-      font-family: var(--font-mono);
+      font-family: 'JetBrains Mono', monospace;
     }
 
     /* ═══════════════════════════════════════
        GRADIENT UTILITIES
-     ═══════════════════════════════════════ */
+      ═══════════════════════════════════════ */
     .gradient-text {
       background: linear-gradient(135deg, var(--mint) 0%, var(--blue) 100%);
       -webkit-background-clip: text;
@@ -147,49 +133,49 @@
     }
 
     /* ═══════════════════════════════════════
-       ANIMATED BACKGROUND
-     ═══════════════════════════════════════ */
+       ANIMATED CANVAS BACKGROUND
+      ═══════════════════════════════════════ */
     .bg-canvas {
       position: fixed;
       inset: 0;
       z-index: -1;
       overflow: hidden;
-      background: var(--obsidian);
+      background: var(--bg-base);
     }
 
     .orb {
       position: absolute;
       border-radius: 50%;
-      filter: blur(100px);
-      opacity: 0.18;
-      animation: orb-drift 20s ease-in-out infinite alternate;
+      filter: blur(110px);
+      opacity: 0.16;
+      animation: orb-drift 22s ease-in-out infinite alternate;
     }
     .orb-1 {
-      width: 600px; height: 600px;
+      width: 650px; height: 650px;
       background: radial-gradient(circle, var(--mint), transparent 70%);
-      top: -20%; left: -10%;
-      animation-duration: 22s;
+      top: -15%; left: -8%;
+      animation-duration: 24s;
     }
     .orb-2 {
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, var(--purple), transparent 70%);
-      bottom: -15%; right: -5%;
-      animation-duration: 18s;
-      animation-delay: -8s;
+      width: 550px; height: 550px;
+      background: radial-gradient(circle, var(--blue), transparent 70%);
+      bottom: -12%; right: -4%;
+      animation-duration: 19s;
+      animation-delay: -6s;
     }
     .orb-3 {
-      width: 350px; height: 350px;
-      background: radial-gradient(circle, var(--blue), transparent 70%);
-      top: 50%; left: 50%;
+      width: 380px; height: 380px;
+      background: radial-gradient(circle, var(--purple), transparent 70%);
+      top: 45%; left: 45%;
       transform: translate(-50%, -50%);
-      animation-duration: 25s;
-      animation-delay: -4s;
-      opacity: 0.10;
+      animation-duration: 28s;
+      animation-delay: -3s;
+      opacity: 0.08;
     }
 
     @keyframes orb-drift {
       from { transform: translate(0, 0) scale(1); }
-      to   { transform: translate(40px, 30px) scale(1.08); }
+      to   { transform: translate(50px, 40px) scale(1.06); }
     }
 
     .grid-overlay {
@@ -198,13 +184,13 @@
       background-image:
         linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 48px 48px;
+      background-size: 54px 54px;
       mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black, transparent);
     }
 
     /* ═══════════════════════════════════════
        NAVIGATION
-     ═══════════════════════════════════════ */
+      ═══════════════════════════════════════ */
     #navbar {
       position: fixed;
       top: 0; width: 100%;
@@ -216,9 +202,9 @@
     #navbar.scrolled {
       padding: 0.875rem 0;
       background: rgba(8, 11, 18, 0.85);
-      backdrop-filter: blur(20px) saturate(1.5);
-      border-bottom: 1px solid var(--card-border);
-      box-shadow: var(--shadow-card);
+      backdrop-filter: blur(20px) saturate(1.6);
+      border-bottom: 1px solid var(--border-subtle);
+      box-shadow: 0 4px 40px rgba(0,0,0,0.5);
     }
 
     .nav-inner {
@@ -235,7 +221,7 @@
       font-weight: 800;
       font-size: 1.25rem;
       letter-spacing: -0.02em;
-      color: var(--text-primary);
+      color: var(--text-100);
     }
 
     .logo-mark {
@@ -244,22 +230,22 @@
       border-radius: var(--radius-sm);
       display: flex; align-items: center; justify-content: center;
       font-size: 0.875rem;
-      color: var(--text-inverse);
-      box-shadow: 0 2px 12px var(--mint-dim);
+      color: #080b12;
+      box-shadow: 0 2px 12px var(--primary-glow);
     }
 
     .nav-links {
       display: flex;
       gap: 0.25rem;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--card-border);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius-pill);
       padding: 0.375rem;
     }
 
     .nav-links a {
       text-decoration: none;
-      color: var(--text-secondary);
+      color: var(--text-400);
       font-size: 0.875rem;
       font-weight: 500;
       padding: 0.4rem 1rem;
@@ -268,8 +254,8 @@
     }
 
     .nav-links a:hover {
-      color: var(--text-primary);
-      background: rgba(255,255,255,0.07);
+      color: var(--text-100);
+      background: rgba(255,255,255,0.06);
     }
 
     .btn {
@@ -288,39 +274,29 @@
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--mint), var(--mint-hover));
-      color: var(--text-inverse);
-      box-shadow: 0 2px 12px var(--mint-dim);
+      background: linear-gradient(135deg, var(--mint), var(--blue));
+      color: #080b12;
+      box-shadow: 0 2px 12px var(--primary-glow);
     }
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(0, 232, 160, 0.5);
+      box-shadow: 0 6px 24px rgba(0, 232, 160, 0.45);
     }
 
     .btn-ghost {
       background: rgba(255,255,255,0.06);
-      color: var(--text-primary);
-      border: 1px solid var(--card-border);
+      color: var(--text-200);
+      border: 1px solid var(--border-medium);
     }
     .btn-ghost:hover {
       background: rgba(255,255,255,0.10);
-      border-color: var(--card-border);
+      border-color: var(--border-strong);
       transform: translateY(-1px);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--mint);
-      border: 1px solid rgba(0, 232, 160, 0.4);
-    }
-    .btn-outline:hover {
-      background: var(--mint-dim);
-      border-color: var(--mint);
     }
 
     /* ═══════════════════════════════════════
        HERO
-     ═══════════════════════════════════════ */
+      ═══════════════════════════════════════ */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -333,14 +309,14 @@
       display: grid;
       grid-template-columns: 1.1fr 0.9fr;
       align-items: center;
-      gap: 5rem;
+      gap: 4rem;
     }
 
     .status-pill {
       display: inline-flex;
       align-items: center;
       gap: 0.625rem;
-      background: var(--mint-dim);
+      background: rgba(0, 232, 160, 0.08);
       border: 1px solid rgba(0, 232, 160, 0.2);
       color: var(--mint);
       padding: 0.4rem 1rem 0.4rem 0.625rem;
@@ -372,20 +348,19 @@
     }
 
     .hero h1 {
-      font-family: var(--font-serif);
-      font-size: clamp(2.5rem, 4.5vw, 4rem);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
+      font-size: clamp(2.55rem, 4.5vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
       margin-bottom: 1.5rem;
     }
 
     .hero-sub {
       font-size: 1.125rem;
-      color: var(--text-secondary);
+      color: var(--text-400);
       line-height: 1.75;
       margin-bottom: 2.5rem;
-      max-width: 500px;
+      max-width: 540px;
     }
 
     .hero-actions {
@@ -399,13 +374,12 @@
       font-size: 1rem;
     }
 
-    /* Stat strip */
     .stat-strip {
       display: flex;
       gap: 2rem;
       margin-top: 3.5rem;
       padding-top: 2.5rem;
-      border-top: 1px solid var(--card-border);
+      border-top: 1px solid var(--border-subtle);
     }
 
     .stat-item { flex: 1; }
@@ -418,13 +392,13 @@
     }
     .stat-label {
       font-size: 0.8rem;
-      color: var(--text-secondary);
+      color: var(--text-400);
       font-weight: 500;
     }
 
     /* ═══════════════════════════════════════
-       AGENT WINDOW / TERMINAL
-     ═══════════════════════════════════════ */
+       ANIMATED TERMINAL WINDOW
+      ═══════════════════════════════════════ */
     .terminal-wrap {
       position: relative;
     }
@@ -432,22 +406,22 @@
     .terminal-glow {
       position: absolute;
       inset: -20px;
-      background: radial-gradient(circle at 50% 50%, var(--mint-dim), transparent 70%);
+      background: radial-gradient(circle at 50% 50%, rgba(0, 232, 160, 0.10), transparent 70%);
       border-radius: 50%;
       z-index: -1;
     }
 
     .agent-window {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-medium);
       border-radius: var(--radius-lg);
       overflow: hidden;
-      box-shadow: var(--shadow-elevated), 0 0 0 1px rgba(255,255,255,0.03);
+      box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255,255,255,0.02);
     }
 
     .win-bar {
       background: rgba(255,255,255,0.04);
-      border-bottom: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--border-subtle);
       padding: 0.875rem 1.25rem;
       display: flex;
       align-items: center;
@@ -468,19 +442,19 @@
       text-align: center;
       font-size: 0.75rem;
       font-weight: 600;
-      color: var(--text-secondary);
-      font-family: var(--font-mono);
+      color: var(--text-400);
+      font-family: 'JetBrains Mono', monospace;
     }
 
     .win-badge {
-      background: var(--mint-dim);
+      background: rgba(0, 232, 160, 0.1);
       color: var(--mint);
       font-size: 0.65rem;
       font-weight: 700;
       padding: 0.2rem 0.5rem;
       border-radius: var(--radius-pill);
       letter-spacing: 0.06em;
-      border: 1px solid rgba(0, 232, 160, 0.2);
+      border: 1px solid rgba(0, 232, 160, 0.15);
     }
 
     .win-body {
@@ -489,148 +463,76 @@
       flex-direction: column;
       gap: 0.875rem;
       min-height: 340px;
+      font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Chat messages */
-    .msg {
-      display: flex;
-      gap: 0.75rem;
-      align-items: flex-start;
-      animation: msg-in 0.4s var(--ease-out) both;
+    .terminal-line {
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: var(--text-200);
+      animation: line-in 0.4s var(--ease-out) both;
     }
 
-    @keyframes msg-in {
-      from { opacity: 0; transform: translateY(6px); }
+    @keyframes line-in {
+      from { opacity: 0; transform: translateY(4px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .msg-avatar {
-      width: 30px; height: 30px;
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.75rem;
-      flex-shrink: 0;
-    }
-    .msg-avatar.ai { background: linear-gradient(135deg, var(--mint), var(--blue)); color: var(--text-inverse); }
-    .msg-avatar.user { background: var(--surface-raised); border: 1px solid var(--card-border); }
-
-    .msg-bubble {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--card-border);
-      padding: 0.625rem 0.875rem;
-      border-radius: 4px 12px 12px 12px;
-      font-size: 0.8rem;
-      line-height: 1.6;
-      color: var(--text-primary);
-      max-width: 82%;
+    .terminal-prompt {
+      color: var(--mint);
+      margin-right: 0.5rem;
     }
 
-    .msg-label {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      color: var(--text-tertiary);
-      margin-bottom: 0.25rem;
-      font-family: var(--font-mono);
+    .terminal-success {
+      color: var(--mint);
     }
 
-    .step-list {
-      margin-top: 0.25rem;
-      background: rgba(0,0,0,0.3);
-      border: 1px solid var(--card-border);
+    .terminal-warning {
+      color: var(--blue);
+    }
+
+    .progress-reporter {
+      margin-top: 0.5rem;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       padding: 0.875rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
     }
 
-    .step-row {
-      display: flex;
-      align-items: center;
-      gap: 0.625rem;
+    .progress-title {
       font-size: 0.75rem;
-      font-family: var(--font-mono);
+      color: var(--text-400);
+      margin-bottom: 0.5rem;
     }
 
-    .step-icon { width: 16px; text-align: center; font-size: 0.7rem; }
-    .step-row.done { color: var(--mint); }
-    .step-row.active { color: var(--blue); }
-    .step-row.pending { color: var(--text-tertiary); }
-
-    .step-progress-bar {
-      height: 2px;
-      background: var(--card-border);
-      border-radius: 1px;
-      margin-top: 0.625rem;
+    .progress-bar-container {
+      height: 4px;
+      background: var(--border-subtle);
+      border-radius: var(--radius-pill);
       overflow: hidden;
     }
-    .step-progress-fill {
+
+    .progress-fill {
       height: 100%;
-      width: 70%;
+      width: 72%;
       background: linear-gradient(90deg, var(--mint), var(--blue));
-      border-radius: 1px;
-      animation: progress-pulse 2s ease-in-out infinite;
-    }
-    @keyframes progress-pulse {
-      0%, 100% { opacity: 0.8; }
-      50% { opacity: 1; }
+      border-radius: var(--radius-pill);
+      animation: fill-pulse 1.5s ease-in-out infinite alternate;
     }
 
-    /* ═══════════════════════════════════════
-       SECTION HEADERS
-     ═══════════════════════════════════════ */
-    .section-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--mint);
-      margin-bottom: 1.25rem;
-    }
-
-    .section-eyebrow::before {
-      content: '';
-      display: block;
-      width: 20px; height: 2px;
-      background: var(--mint);
-      border-radius: 1px;
-    }
-
-    .section-title {
-      font-family: var(--font-serif);
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      margin-bottom: 1.25rem;
-    }
-
-    .section-sub {
-      font-size: 1.0625rem;
-      color: var(--text-secondary);
-      line-height: 1.75;
-      max-width: 540px;
-    }
-
-    section {
-      padding: 7rem 0;
+    @keyframes fill-pulse {
+      from { filter: brightness(1); }
+      to { filter: brightness(1.2); }
     }
 
     /* ═══════════════════════════════════════
        PROBLEM / SOLUTION
-     ═══════════════════════════════════════ */
-    #problem {
-      padding: 5rem 0;
-    }
-
+      ═══════════════════════════════════════ */
     .problem-solution {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1.5rem;
+      margin-top: 3rem;
     }
 
     .ps-card {
@@ -638,17 +540,16 @@
       padding: 2.5rem;
       position: relative;
       overflow: hidden;
-      border: 1px solid;
     }
 
     .ps-card.problem-card {
-      background: var(--coral-dim);
-      border-color: rgba(255, 107, 107, 0.15);
+      background: rgba(255, 107, 107, 0.03);
+      border: 1px solid rgba(255, 107, 107, 0.12);
     }
 
     .ps-card.solution-card {
-      background: var(--mint-dim);
-      border-color: rgba(0, 232, 160, 0.15);
+      background: rgba(0, 232, 160, 0.03);
+      border: 1px solid rgba(0, 232, 160, 0.12);
     }
 
     .ps-label {
@@ -664,18 +565,17 @@
       margin-bottom: 1.5rem;
     }
     .problem-card .ps-label {
-      background: rgba(255, 107, 107, 0.12);
+      background: rgba(255, 107, 107, 0.10);
       color: var(--coral);
-      border: 1px solid rgba(255, 107, 107, 0.2);
+      border: 1px solid rgba(255, 107, 107, 0.16);
     }
     .solution-card .ps-label {
-      background: var(--mint-dim);
+      background: rgba(0, 232, 160, 0.10);
       color: var(--mint);
-      border: 1px solid rgba(0, 232, 160, 0.2);
+      border: 1px solid rgba(0, 232, 160, 0.16);
     }
 
     .ps-heading {
-      font-family: var(--font-sans);
       font-size: 1.375rem;
       font-weight: 700;
       letter-spacing: -0.02em;
@@ -684,7 +584,7 @@
 
     .ps-body {
       font-size: 0.9375rem;
-      color: var(--text-secondary);
+      color: var(--text-400);
       line-height: 1.75;
       margin-bottom: 1.75rem;
     }
@@ -701,7 +601,7 @@
       align-items: flex-start;
       gap: 0.625rem;
       font-size: 0.875rem;
-      color: var(--text-secondary);
+      color: var(--text-400);
     }
 
     .ps-list li .icon {
@@ -713,17 +613,18 @@
     .solution-card .icon { color: var(--mint); }
 
     /* ═══════════════════════════════════════
-       BENTO BOXES (FEATURES)
-     ═══════════════════════════════════════ */
+       FEATURES BENTO
+      ═══════════════════════════════════════ */
     .bento-grid {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
       gap: 1.25rem;
+      margin-top: 3rem;
     }
 
     .bento {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
       padding: 2rem;
       transition: all 0.3s var(--ease-out);
@@ -735,16 +636,16 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(0,232,160,0.03) 0%, transparent 60%);
+      background: linear-gradient(135deg, rgba(0, 232, 160, 0.03) 0%, transparent 60%);
       opacity: 0;
       transition: opacity 0.3s;
     }
 
     .bento:hover::before { opacity: 1; }
     .bento:hover {
-      border-color: rgba(0, 232, 160, 0.2);
+      border-color: var(--border-strong);
       transform: translateY(-3px);
-      box-shadow: var(--shadow-card);
+      box-shadow: var(--shadow-md);
     }
 
     .bento-a { grid-column: span 7; }
@@ -767,24 +668,23 @@
       color: var(--mint);
       box-shadow: 0 0 20px rgba(0, 232, 160, 0.15);
     }
-    .bento-icon-purple {
-      background: var(--purple-dim);
-      color: var(--purple);
-      box-shadow: 0 0 20px rgba(184, 130, 255, 0.15);
-    }
     .bento-icon-blue {
       background: var(--blue-dim);
       color: var(--blue);
       box-shadow: 0 0 20px rgba(96, 165, 250, 0.15);
     }
+    .bento-icon-purple {
+      background: var(--purple-dim);
+      color: var(--purple);
+      box-shadow: 0 0 20px rgba(184, 130, 255, 0.15);
+    }
     .bento-icon-amber {
       background: var(--amber-dim);
       color: var(--amber);
-      box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
     }
 
     .bento h3 {
-      font-family: var(--font-sans);
       font-size: 1.125rem;
       font-weight: 700;
       letter-spacing: -0.02em;
@@ -793,40 +693,26 @@
 
     .bento p {
       font-size: 0.9rem;
-      color: var(--text-secondary);
+      color: var(--text-400);
       line-height: 1.7;
     }
-
-    .code-block {
-      background: var(--surface-sunken);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-md);
-      padding: 1rem 1.25rem;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      line-height: 1.7;
-      margin-top: 1.25rem;
-      overflow-x: auto;
-    }
-
-    .code-comment { color: var(--text-tertiary); }
-    .code-key { color: var(--mint); }
-    .code-str { color: var(--blue); }
-    .code-num { color: var(--amber); }
-    .code-bracket { color: var(--text-secondary); }
 
     /* ═══════════════════════════════════════
-       PIPELINE (HORIZONTAL TRACK)
-     ═══════════════════════════════════════ */
+       PIPELINE TIMELINE
+      ═══════════════════════════════════════ */
     #pipeline {
-      background: rgba(255,255,255,0.01);
-      border-top: 1px solid var(--card-border);
-      border-bottom: 1px solid var(--card-border);
+      background: rgba(255,255,255,0.005);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     .pipeline-header {
       text-align: center;
       margin-bottom: 5rem;
+    }
+
+    .pipeline-header .section-eyebrow {
+      justify-content: center;
     }
 
     .pipeline-track {
@@ -840,13 +726,13 @@
       content: '';
       position: absolute;
       top: 36px;
-      left: 10%;
-      right: 10%;
+      left: 12%;
+      right: 12%;
       height: 1px;
       background: linear-gradient(90deg,
         transparent 0%,
-        var(--card-border) 10%,
-        var(--card-border) 90%,
+        var(--border-medium) 10%,
+        var(--border-medium) 90%,
         transparent 100%
       );
     }
@@ -873,8 +759,8 @@
     .pipe-orb:hover { transform: scale(1.1); }
 
     .pipe-orb-1 { background: var(--mint-dim); color: var(--mint); border: 1px solid rgba(0, 232, 160, 0.2); }
-    .pipe-orb-2 { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(184, 130, 255, 0.2); }
-    .pipe-orb-3 { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(96, 165, 250, 0.2); }
+    .pipe-orb-2 { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(96, 165, 250, 0.2); }
+    .pipe-orb-3 { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(184, 130, 255, 0.2); }
     .pipe-orb-4 { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(245, 158, 11, 0.2); }
 
     .pipe-step {
@@ -882,9 +768,9 @@
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--text-tertiary);
+      color: var(--text-600);
       margin-bottom: 0.5rem;
-      font-family: var(--font-mono);
+      font-family: 'JetBrains Mono', monospace;
     }
 
     .pipe-title {
@@ -896,13 +782,13 @@
 
     .pipe-desc {
       font-size: 0.8125rem;
-      color: var(--text-secondary);
+      color: var(--text-400);
       line-height: 1.6;
     }
 
     /* ═══════════════════════════════════════
-       SHOWCASE FRAME (INTERACTIVE SPLIT VIEW)
-     ═══════════════════════════════════════ */
+       SHOWCASE (SPLIT VIEW PREVIEW ANIMATION)
+      ═══════════════════════════════════════ */
     .showcase-header {
       text-align: center;
       margin-bottom: 4rem;
@@ -912,13 +798,13 @@
       position: relative;
       border-radius: var(--radius-xl);
       overflow: hidden;
-      border: 1px solid var(--card-border);
-      box-shadow: var(--shadow-elevated);
+      border: 1px solid var(--border-medium);
+      box-shadow: var(--shadow-lg);
     }
 
     .showcase-bar {
       background: rgba(255,255,255,0.04);
-      border-bottom: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--border-subtle);
       padding: 0.875rem 1.25rem;
       display: flex;
       align-items: center;
@@ -934,32 +820,52 @@
     .split-view {
       position: relative;
       width: 100%;
-      background: var(--surface-sunken);
-      padding: 32px;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: #060910;
+    }
+
+    .split-pane {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 48px;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    .split-pane {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-lg);
-      padding: 32px;
-      position: relative;
-      box-shadow: var(--shadow-card);
+    .split-pane.before {
+      z-index: 1;
       width: 100%;
-      max-width: 600px;
-      margin: 0 auto;
+      border-right: 2px solid var(--primary);
+      box-shadow: 10px 0 30px rgba(0,0,0,0.5);
+      animation: split-sweep 7s ease-in-out infinite;
+      background: #030508;
+    }
+
+    @keyframes split-sweep {
+      0% { width: 100%; }
+      15% { width: 100%; }
+      45% { width: 0%; }
+      70% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    .split-pane.after {
+      z-index: 0;
+      background: var(--obsidian);
     }
 
     .pane-label {
       position: absolute;
       top: 1.25rem;
-      right: 1.25rem;
-      background: rgba(8, 11, 18, 0.8);
+      left: 1.25rem;
+      background: rgba(0,0,0,0.8);
       backdrop-filter: blur(10px);
-      border: 1px solid var(--card-border);
+      border: 1px solid rgba(255,255,255,0.1);
       padding: 0.4rem 0.875rem;
       border-radius: var(--radius-pill);
       font-size: 0.7rem;
@@ -968,10 +874,33 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      z-index: 2;
     }
 
-    .pane-label.before { color: var(--coral); }
-    .pane-label.after { color: var(--mint); }
+    .pane-label.before {
+      color: var(--coral);
+      animation: label-before-fade 7s ease-in-out infinite;
+    }
+    .pane-label.after {
+      color: var(--mint);
+      animation: label-after-fade 7s ease-in-out infinite;
+    }
+
+    @keyframes label-before-fade {
+      0% { opacity: 1; }
+      15% { opacity: 1; }
+      45% { opacity: 0; }
+      70% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes label-after-fade {
+      0% { opacity: 0; }
+      15% { opacity: 0; }
+      45% { opacity: 1; }
+      70% { opacity: 1; }
+      100% { opacity: 0; }
+    }
 
     .showcase-meta {
       margin-top: 2.5rem;
@@ -981,16 +910,14 @@
     }
 
     .meta-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       padding: 1.25rem 1.5rem;
       display: flex;
       align-items: center;
       gap: 1rem;
-      transition: border-color 0.2s ease;
     }
-    .meta-card:hover { border-color: var(--mint); }
 
     .meta-icon {
       font-size: 1.25rem;
@@ -1007,15 +934,15 @@
 
     .meta-text .meta-desc {
       font-size: 0.75rem;
-      color: var(--text-secondary);
+      color: var(--text-400);
     }
 
     /* ═══════════════════════════════════════
        FOOTER
-     ═══════════════════════════════════════ */
+      ═══════════════════════════════════════ */
     footer {
       padding: 4rem 0;
-      border-top: 1px solid var(--card-border);
+      border-top: 1px solid var(--border-subtle);
     }
 
     .footer-inner {
@@ -1029,13 +956,13 @@
 
     .footer-tagline {
       font-size: 0.85rem;
-      color: var(--text-secondary);
+      color: var(--text-600);
       margin-left: 0.25rem;
     }
 
     .footer-copy {
       font-size: 0.8rem;
-      color: var(--text-tertiary);
+      color: var(--text-600);
       margin-top: 0.375rem;
     }
 
@@ -1053,20 +980,20 @@
       border-radius: var(--radius-pill);
       font-size: 0.875rem;
       font-weight: 500;
-      color: var(--text-secondary);
+      color: var(--text-400);
       text-decoration: none;
-      border: 1px solid var(--card-border);
+      border: 1px solid var(--border-subtle);
       transition: all 0.2s;
     }
     .footer-link:hover {
-      color: var(--text-primary);
-      border-color: var(--mint);
-      background: var(--mint-dim);
+      color: var(--text-100);
+      border-color: var(--border-medium);
+      background: rgba(255,255,255,0.04);
     }
 
     /* ═══════════════════════════════════════
-       SCROLL REVEAL & RESPONSIVE
-     ═══════════════════════════════════════ */
+       SCROLL REVEAL ANIMATIONS
+      ═══════════════════════════════════════ */
     .reveal {
       opacity: 0;
       transform: translateY(24px);
@@ -1077,6 +1004,9 @@
       transform: translateY(0);
     }
 
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+      ═══════════════════════════════════════ */
     @media (max-width: 1024px) {
       .hero-grid { grid-template-columns: 1fr; gap: 4rem; }
       .hero { min-height: auto; padding: 8rem 0 5rem; }
@@ -1097,19 +1027,22 @@
       .pipe-node { flex-direction: row; text-align: left; gap: 1.25rem; }
       .pipe-orb { margin-bottom: 0; flex-shrink: 0; }
 
+      .split-view { aspect-ratio: 4 / 3; }
       .showcase-meta { grid-template-columns: 1fr; }
       .footer-inner { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 640px) {
       .nav-links { display: none; }
-      .hero h1 { font-size: 2.2rem; }
+      .hero h1 { font-size: 2.5rem; }
+      .split-view { aspect-ratio: 1 / 1; }
+      .split-pane { padding: 24px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ░░ CANVAS / BG ░░ -->
+  <!-- ░░ CANVAS BACKGROUND ░░ -->
   <div class="bg-canvas" aria-hidden="true">
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
@@ -1117,7 +1050,7 @@
     <div class="grid-overlay"></div>
   </div>
 
-  <!-- ░░ NAV ░░ -->
+  <!-- ░░ NAVIGATION ░░ -->
   <nav id="navbar">
     <div class="container nav-inner">
       <a href="#" class="logo">
@@ -1126,10 +1059,10 @@
       </a>
 
       <div class="nav-links">
-        <a href="#problem">Old vs New</a>
+        <a href="#why">Why</a>
         <a href="#features">Features</a>
         <a href="#pipeline">Pipeline</a>
-        <a href="#showcase">Demonstration</a>
+        <a href="#demo">Showcase</a>
       </div>
 
       <a href="https://github.com/mbettan/eml2pdf" target="_blank" rel="noopener" class="btn btn-primary">
@@ -1143,11 +1076,11 @@
   <header class="hero" id="top">
     <div class="container hero-grid">
 
-      <!-- Left Copy -->
+      <!-- Left: Hero Copy -->
       <div class="hero-copy">
         <div class="status-pill">
-          <span class="pulse-ring"></span>
-          Production Ready &bull; High-Performance WeasyPrint Backend
+          <div class="pulse-ring"></div>
+          eml2pdf v1.1.0 &mdash; High-Performance WeasyPrint Backend
         </div>
 
         <h1>
@@ -1156,14 +1089,13 @@
         </h1>
 
         <p class="hero-sub">
-          Convert EML email archives to PDF documents with absolute layout accuracy, 
-          dynamic attachment list generation, and offline Base64 image rendering.
+          Convert local EML email archives to high-fidelity PDF documents with absolute layout accuracy, dynamic attachment list serialization, and safe offline Base64 image rendering.
         </p>
 
         <div class="hero-actions">
-          <a href="#showcase" class="btn btn-primary btn-lg">
-            <i class="fas fa-play"></i>
-            See It Work
+          <a href="#demo" class="btn btn-primary btn-lg">
+            <i class="fas fa-eye"></i>
+            Watch it Work
           </a>
           <a href="#features" class="btn btn-ghost btn-lg">
             Explore Features
@@ -1178,16 +1110,16 @@
           </div>
           <div class="stat-item">
             <div class="stat-value gradient-text">multi-core</div>
-            <div class="stat-label">Parallel Processing</div>
+            <div class="stat-label">Parallel Ingestion</div>
           </div>
           <div class="stat-item">
-            <div class="stat-value gradient-text-purple">0</div>
-            <div class="stat-label">Layout Loops / Hangs</div>
+            <div class="stat-value gradient-text-purple">Zero</div>
+            <div class="stat-label">Endless Layout Loops</div>
           </div>
         </div>
       </div>
 
-      <!-- Right Agent Terminal Sandbox -->
+      <!-- Right: Animated Terminal -->
       <div class="terminal-wrap">
         <div class="terminal-glow"></div>
         <div class="agent-window">
@@ -1197,57 +1129,40 @@
               <div class="win-dot y"></div>
               <div class="win-dot g"></div>
             </div>
-            <div class="win-title">eml2pdf-daemon &bull; convert-session-93</div>
+            <div class="win-title">eml2pdf convert_dir ./eml ./pdf</div>
             <div class="win-badge">READY</div>
           </div>
 
           <div class="win-body">
-            <div class="msg" style="animation-delay: 0s">
-              <div class="msg-avatar ai"><i class="fas fa-terminal"></i></div>
-              <div>
-                <div class="msg-label">DAEMON RUN EXPLORER</div>
-                <div class="msg-bubble">
-                  Executing parallel batch conversion under <strong>convert_dir</strong> subcommand.<br>
-                  Staging thread allocation and initializing WeasyPrint process pipeline...
-                </div>
+            <div class="terminal-line" style="animation-delay: 0.2s">
+              <span class="terminal-prompt">$</span> python eml2pdf.py convert_file email.eml --unsafe
+            </div>
+            <div class="terminal-line" style="animation-delay: 0.6s">
+              Resolving email metadata and structures...
+            </div>
+            <div class="terminal-line" style="animation-delay: 1.0s">
+              [1/4] Decoded headers: <span class="terminal-success">Subject: "Test Email"</span>
+            </div>
+            <div class="terminal-line" style="animation-delay: 1.4s">
+              [2/4] Resolved: <span class="terminal-success">2 inline images</span> embedded as Base64 CIDs
+            </div>
+            <div class="terminal-line" style="animation-delay: 1.8s">
+              [3/4] Injected Safeguards: <span class="terminal-success">Layout infinite height override rules active</span>
+            </div>
+            <div class="terminal-line" style="animation-delay: 2.2s">
+              [4/4] Extracted: <span class="terminal-warning">2 attachments saved to disk</span> with MD5 manifest
+            </div>
+            
+            <div class="progress-reporter" style="animation-delay: 2.6s; animation: line-in 0.4s ease-out both;">
+              <div class="progress-title">✓ Invoking WeasyPrint PDF rendering compiler...</div>
+              <div class="progress-title">✓ Bundling attachment authenticity metadata footer...</div>
+              <div class="progress-bar-container">
+                <div class="progress-fill"></div>
               </div>
             </div>
-
-            <div class="msg outgoing" style="animation-delay: 0.15s">
-              <div class="msg-avatar user"><i class="fas fa-shield-halved"></i></div>
-              <div>
-                <div class="msg-label" style="text-align: right;">SANDBOX STATUS</div>
-                <div class="msg-bubble">Isolation active. External tracker connections strictly blocked.</div>
-              </div>
-            </div>
-
-            <div class="msg" style="animation-delay: 0.3s">
-              <div class="msg-avatar ai"><i class="fas fa-microchip"></i></div>
-              <div>
-                <div class="msg-label">WORKER POOL MANAGER</div>
-                <div class="msg-bubble">Processing queue and compiling target PDF elements.</div>
-                <div class="step-list">
-                  <div class="step-row done">
-                    <span class="step-icon"><i class="fas fa-check"></i></span>
-                    01 &bull; Parse email headers (From, To, Date)
-                  </div>
-                  <div class="step-row done">
-                    <span class="step-icon"><i class="fas fa-check"></i></span>
-                    02 &bull; Resolve CID images &amp; embed as Base64
-                  </div>
-                  <div class="step-row active">
-                    <span class="step-icon"><i class="fas fa-circle-notch fa-spin"></i></span>
-                    03 &bull; Compile layout (Inject loop-hang CSS fixes)
-                  </div>
-                  <div class="step-row pending">
-                    <span class="step-icon"><i class="fas fa-circle"></i></span>
-                    04 &bull; Map attachments &amp; append MD5 Table
-                  </div>
-                  <div class="step-progress-bar">
-                    <div class="step-progress-fill"></div>
-                  </div>
-                </div>
-              </div>
+            
+            <div class="terminal-line terminal-success" style="animation-delay: 3.2s">
+              ✓ SUCCESS: Output PDF compiled to `email.pdf` (~1.2 MB)
             </div>
           </div>
         </div>
@@ -1256,72 +1171,75 @@
     </div>
   </header>
 
-  <!-- ░░ PROBLEM / SOLUTION ░░ -->
-  <section id="problem">
+  <!-- ░░ WHY EML2PDF ░░ -->
+  <section id="why">
     <div class="container">
       <div class="reveal">
         <div class="section-eyebrow">The Challenge</div>
         <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem;">
-          <h2 class="section-title" style="margin-bottom: 0; max-width: 500px;">
-            Email Archiving is<br><span class="gradient-text">frequently broken.</span>
+          <h2 class="section-title" style="margin-bottom: 0; max-width: 520px;">
+            Email archival is<br><span class="gradient-text">fundamentally complex.</span>
           </h2>
           <p class="section-sub" style="font-size: 0.9375rem;">
-            Legacy renderers break CSS layouts, fail to load offline inline assets, execute remote tracking requests that leak private data, or hang forever on nested percentage tables. Eml2pdf fixes all of this.
+            Legacy rendering engines break modern responsive email layouts, fail to handle offline inline assets cleanly, execute remote tracking hits that leak private data, or crash completely when nested tables generate endless paged height calculation loops. Eml2pdf fixes all of this.
           </p>
         </div>
       </div>
+
       <div class="problem-solution reveal">
+        <!-- The Old Way -->
         <div class="ps-card problem-card">
           <div class="ps-label"><i class="fas fa-times-circle"></i> The Old Way</div>
           <h3 class="ps-heading">Fragile Rendering Engines</h3>
           <p class="ps-body">
-            WKHTMLtoPDF and other tools break layouts, leak security, and fail on modern responsive newsletter code templates.
+            WKHTMLtoPDF and ad-hoc script workflows crash, leak security coordinates, and drop critical attachment data during conversions.
           </p>
           <ul class="ps-list">
-            <li><span class="icon"><i class="fas fa-times-circle"></i></span> External image loads leak privacy data to remote trackers</li>
-            <li><span class="icon"><i class="fas fa-times-circle"></i></span> Nested table heights trigger endless page rendering hangs</li>
-            <li><span class="icon"><i class="fas fa-times-circle"></i></span> CID inline images break, producing empty resource frames</li>
-            <li><span class="icon"><i class="fas fa-times-circle"></i></span> Attachment details are completely lost in the PDF</li>
+            <li><span class="icon"><i class="fas fa-times-circle"></i></span> External image fetching leaks client analytics to remote tracking pixels</li>
+            <li><span class="icon"><i class="fas fa-times-circle"></i></span> Nested percentage table structures lock WeasyPrint into endless layout loops</li>
+            <li><span class="icon"><i class="fas fa-times-circle"></i></span> Local CID inline image paths break, resulting in empty visual frames</li>
+            <li><span class="icon"><i class="fas fa-times-circle"></i></span> Essential attachment information is completely lost in the PDF</li>
           </ul>
         </div>
+
+        <!-- The New Way -->
         <div class="ps-card solution-card">
           <div class="ps-label"><i class="fas fa-check-circle"></i> The eml2pdf Way</div>
           <h3 class="ps-heading">Robust Archival Architecture</h3>
           <p class="ps-body">
-            WeasyPrint backend rendering combined with strict security filters and smart layouts guarantee reliable outputs.
+            Standards-compliant HTML/CSS compilation, sandboxed HTTP routing, and custom layout overrides ensure absolute structural preservation.
           </p>
           <ul class="ps-list">
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> Strict URL sandboxing isolates external tracking hits by default</li>
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> Dynamic layout rules override and neutralize WeasyPrint height loops</li>
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> MIME CID parts are decoded and integrated directly as Base64</li>
-            <li><span class="icon"><i class="fas fa-check-circle"></i></span> Elegant footer attachment listings with custom MD5 Checksums</li>
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> Strict URL sandboxing isolates external tracking Hits by default</li>
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> Dynamic layout CSS overrides neutralize height loop hang hazards</li>
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> MIME CID parts are parsed and integrated directly as Base64 data</li>
+            <li><span class="icon"><i class="fas fa-check-circle"></i></span> Elegant attachment footer manifest with custom MD5 Checksums</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ░░ FEATURES ░░ -->
+  <!-- ░░ FEATURES BENTO ░░ -->
   <section id="features">
     <div class="container">
       <div class="reveal" style="margin-bottom: 4rem;">
-        <div class="section-eyebrow">Core Features</div>
+        <div class="section-eyebrow">Engine Capabilities</div>
         <h2 class="section-title">
-          Engineered for absolute accuracy<br>
-          <span class="gradient-text">and enterprise speed.</span>
+          High-fidelity conversions<br>
+          <span class="gradient-text">with multi-core speed.</span>
         </h2>
       </div>
 
       <div class="bento-grid reveal">
-        
-        <!-- Large card: Python API & Multiprocessing -->
+        <!-- Python API & Parallel Ingest -->
         <div class="bento bento-a">
-          <div class="bento-icon bento-icon-mint">
-            <i class="fas fa-microchip"></i>
+          <div class="bento-icon bento-icon-cyan">
+            <i class="fas fa-route"></i>
           </div>
-          <h3>High-Performance Library API</h3>
+          <h3>Parallel Batch Ingestion</h3>
           <p>
-            Leverage a multi-core worker Pool using Python's native <code>multiprocessing</code> to convert directories containing thousands of EML files in seconds.
+            Leverage a high-performance multi-core worker Pool using Python's native `multiprocessing` to recursively walk and convert directories containing thousands of EML files in seconds.
           </p>
           <div class="code-block">
             <span class="code-comment"># Setup parallel batch converter pipeline</span><br>
@@ -1331,110 +1249,142 @@
           </div>
         </div>
 
-        <!-- Image base64 CID -->
+        <!-- CID base64 -->
         <div class="bento bento-b">
-          <div class="bento-icon bento-icon-purple">
+          <div class="bento-icon bento-icon-blue">
             <i class="fas fa-images"></i>
           </div>
-          <h3>Inline CID Asset Ingestion</h3>
+          <h3>Inline CID Embedding</h3>
           <p>
-            Automatically extracts local inline images embedded inside MIME layers and re-injects them as compiled base64 data URIs.
+            Automatically identifies local inline images nested within EML MIME boundaries, resolving their paths and compiling them directly as Base64 data URIs for offline portability.
           </p>
         </div>
 
         <!-- Sanitization -->
         <div class="bento bento-c">
-          <div class="bento-icon bento-icon-blue">
+          <div class="bento-icon bento-icon-violet">
             <i class="fas fa-shield-halved"></i>
           </div>
-          <h3>Security Sanitization</h3>
+          <h3>Strict HTML Sanitization</h3>
           <p>
-            Strips out script blocks, iframe sources, flash plugins, and on* DOM events to secure archived views.
+            The parser decomposes script blocks, iframe boundaries, plugin resources, and all `on*` event properties, keeping the compiled PDF immune to XSS injections.
           </p>
         </div>
 
-        <!-- Markdown Fallback -->
+        <!-- Markdown fallback -->
         <div class="bento bento-d">
-          <div class="bento-icon bento-icon-amber">
+          <div class="bento-icon bento-icon-green">
             <i class="fab fa-markdown"></i>
           </div>
-          <h3>Markdown Plaintext Fallback</h3>
+          <h3>Markdown Prose Fallback</h3>
           <p>
-            No HTML part? Plaintext bodies are parsed through Markdown compiler layers for a premium typography layout.
+            Plaintext emails are processed through standard Markdown compilation layers, translating unstyled paragraphs into clean typographic headers and bullet points.
           </p>
         </div>
 
-        <!-- Layout fix -->
+        <!-- Layout overrides -->
         <div class="bento bento-e">
-          <div class="bento-icon bento-icon-mint">
+          <div class="bento-icon bento-icon-cyan">
             <i class="fas fa-arrows-spin"></i>
           </div>
-          <h3>Layout Infinite-Loop Overrides</h3>
+          <h3>Layout Loop Overrides</h3>
           <p>
-            Detects and breaks layout looping hazards caused by nested percentage elements, ensuring WeasyPrint never hangs.
+            Injects targeted layout overrides that reset nested table heights and float variables, preventing infinite height calculations and WeasyPrint engine hangs.
           </p>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- ░░ PIPELINE ░░ -->
+  <!-- ░░ OBSERVED PREVIEW CENTER ░░ -->
+  <section id="dashboard-showcase" style="background: rgba(0, 232, 160, 0.01)">
+    <div class="container">
+      <div class="reveal" style="text-align: center; margin-bottom: 5rem;">
+        <div class="section-eyebrow">Interactive Inspection</div>
+        <h2 class="section-title">An Output Engineered for<br><span class="gradient-text">Absolute Clarity.</span></h2>
+        <p class="section-sub" style="margin: 0 auto;">
+          Review compiled EML metadata, track inline elements, and audit embedded files directly.
+        </p>
+      </div>
+
+      <div class="agent-window reveal" style="box-shadow: 0 0 100px rgba(0, 232, 160, 0.15); border-color: rgba(0, 232, 160, 0.25);">
+        <div class="win-bar">
+          <div class="win-dots">
+            <div class="win-dot r"></div><div class="win-dot y"></div><div class="win-dot g"></div>
+          </div>
+          <div class="win-title">PDF Output Preview &mdash; Ingest Analyzer</div>
+          <div class="win-badge">ACTIVE</div>
+        </div>
+        <div class="win-body" style="padding: 0; min-height: 500px; display: block; overflow: hidden;">
+          <img src="assets/udr_filtered.png" alt="Visual Output Preview Placeholder" style="width: 100%; height: auto; display: block; border-bottom-left-radius: var(--radius-md); border-bottom-right-radius: var(--radius-md);">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ PIPELINE TIMELINE ░░ -->
   <section id="pipeline">
     <div class="container">
       <div class="pipeline-header reveal">
-        <div class="section-eyebrow">Archival Pipeline</div>
-        <h2 class="section-title">Safe Conversion Workflow</h2>
+        <div class="section-eyebrow">Ingestion Loop</div>
+        <h2 class="section-title">How the conversion works.</h2>
         <p class="section-sub" style="margin: 0 auto;">
-          A reliable conversion loop that safeguards privacy and produces clean documents.
+          A secure, automated ingestion pipeline designed for perfect local execution.
         </p>
       </div>
 
       <div class="pipeline-track reveal">
+        <!-- Step 1 -->
         <div class="pipe-node">
           <div class="pipe-orb pipe-orb-1"><i class="fas fa-envelope-open"></i></div>
           <div>
             <div class="pipe-step">Step 01</div>
-            <div class="pipe-title">EML Ingestion</div>
-            <p class="pipe-desc">Raw MIME structures are decoded, extracting HTML/plain text and attachment elements.</p>
+            <div class="pipe-title">Ingest EML</div>
+            <p class="pipe-desc">Reads the raw file and maps metadata (From, To, Date) to a standardized structured model.</p>
           </div>
         </div>
+        <!-- Step 2 -->
         <div class="pipe-node">
           <div class="pipe-orb pipe-orb-2"><i class="fas fa-broom"></i></div>
           <div>
             <div class="pipe-step">Step 02</div>
-            <div class="pipe-title">MIME Sanitization</div>
-            <p class="pipe-desc">Harmful JS tags are removed, and CID images are embedded as Base64.</p>
+            <div class="pipe-title">Sanitize HTML</div>
+            <p class="pipe-desc">Neutralizes scripts, strips tracking pixels, and bundles CID inline attachments into Base64.</p>
           </div>
         </div>
+        <!-- Step 3 -->
         <div class="pipe-node">
-          <div class="pipe-orb pipe-orb-3"><i class="fas fa-shield-alt"></i></div>
+          <div class="pipe-orb pipe-orb-3"><i class="fas fa-cogs"></i></div>
           <div>
             <div class="pipe-step">Step 03</div>
-            <div class="pipe-title">Sandboxed Compilation</div>
-            <p class="pipe-desc">The WeasyPrint engine renders the layout in a sandboxed loop, blocking tracking hits.</p>
+            <div class="pipe-title">Apply CSS overrides</div>
+            <p class="pipe-desc">Injects height and reset variables to bypass layout-looping WeasyPrint hangs.</p>
           </div>
         </div>
+        <!-- Step 4 -->
         <div class="pipe-node">
           <div class="pipe-orb pipe-orb-4"><i class="fas fa-file-pdf"></i></div>
           <div>
             <div class="pipe-step">Step 04</div>
-            <div class="pipe-title">PDF Archive</div>
-            <p class="pipe-desc">A vector PDF is produced with a detailed header and attachment metadata footer.</p>
+            <div class="pipe-title">PDF Compilation</div>
+            <p class="pipe-desc">Renders a highly portable vector PDF equipped with a cryptographic MD5 attachment manifest footer.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ░░ SHOWCASE (INTERACTIVE STATIC MOCK) ░░ -->
-  <section id="showcase" style="background: rgba(0, 232, 160, 0.02)">
+  <!-- ░░ SHOWCASE SPLIT SWEEP ░░ -->
+  <section id="demo">
     <div class="container">
       <div class="showcase-header reveal">
-        <div class="section-eyebrow">Demonstration</div>
-        <h2 class="section-title">Archive-Grade Visual Results</h2>
+        <div class="section-eyebrow">Interactive Split Ingest</div>
+        <h2 class="section-title">
+          Seamless, high-fidelity<br>
+          <span class="gradient-text">visual alignment.</span>
+        </h2>
         <p class="section-sub" style="margin: 0 auto;">
-          Below is the structured documentation index template used by WeasyPrint to generate EML header rows and attachment listings.
+          Hover or sweep across the preview framework to witness how Eml2pdf structures messy newsletter HTML streams into a beautifully formatted, offline-portable PDF document.
         </p>
       </div>
 
@@ -1446,71 +1396,83 @@
             <div class="showcase-dot win-dot g"></div>
           </div>
           <div style="flex: 1; display: flex; justify-content: center;">
-            <div style="background: rgba(0,0,0,0.3); border-radius: var(--radius-pill); padding: 0.3rem 1.25rem; font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-secondary);">
-              🔒 eml2pdf-output-preview
+            <div style="background: rgba(0,0,0,0.3); border-radius: var(--radius-pill); padding: 0.3rem 1.25rem; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; color: var(--text-400);">
+              📧 input_source.eml &mdash;&rarr; output_archive.pdf
             </div>
           </div>
-          <div class="win-badge">PDF PREVIEW</div>
+          <div class="win-badge" style="background: rgba(16,185,129,0.1); color: var(--emerald-400); border-color: rgba(16,185,129,0.2);">
+            CONVERSION PASSED
+          </div>
         </div>
 
         <div class="split-view">
-          <div class="split-pane">
-            <div class="pane-label after">
-              <i class="fas fa-file-pdf"></i> RENDERED OUTCOME
+          <!-- The 'After' state: Clean high-fidelity PDF compilation mockup -->
+          <div class="split-pane after">
+            <div class="pane-label after" style="top: 1.25rem; bottom: auto; right: 1.25rem; left: auto;">
+              <i class="fas fa-check-circle"></i>
+              STRUCTURED PDF ARCHIVE
             </div>
             
-            <!-- Mock Rendered PDF Header -->
-            <div style="border: 1px solid var(--card-border); border-radius: 6px; background: var(--surface-sunken); padding: 16px; margin-bottom: 16px; font-size: 12px; text-align: left;">
-              <table style="width: 100%; border-collapse: collapse;">
+            <div style="width: 100%; max-width: 500px; border: 1px solid var(--card-border); border-radius: 8px; background: var(--surface-sunken); padding: 16px; font-size: 12px; text-align: left; box-shadow: var(--shadow-card);">
+              <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px;">
                 <tr>
                   <td style="font-weight: 600; color: var(--text-secondary); width: 60px; padding: 2px 0;">From:</td>
                   <td style="color: var(--text-primary);">alice@example.com</td>
                 </tr>
                 <tr>
-                  <td style="font-weight: 600; color: var(--text-secondary); padding: 2px 0;">To:</td>
-                  <td style="color: var(--text-primary);">bob@example.com</td>
-                </tr>
-                <tr>
                   <td style="font-weight: 600; color: var(--text-secondary); padding: 2px 0;">Subject:</td>
-                  <td style="color: var(--text-primary); font-weight: 600;">Test Email with Attachments</td>
+                  <td style="color: var(--text-primary); font-weight: 600;">Weekly Architectural Ingest Newsletter</td>
                 </tr>
                 <tr>
                   <td style="font-weight: 600; color: var(--text-secondary); padding: 2px 0;">Date:</td>
-                  <td style="color: var(--text-primary);">2026-05-23 15:15:00 -0400</td>
+                  <td style="color: var(--text-primary);">2026-05-23 15:28:00 -0400</td>
                 </tr>
               </table>
+              
+              <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.6; border-top: 1px solid var(--card-border); padding-top: 10px;">
+                Hello Team,<br><br>
+                We are excited to announce the stable release of our parallel PDF conversion engine daemon! All local tracking blockers are fully validated.
+              </div>
+
+              <div style="margin-top: 20px; padding-top: 10px; border-top: 2px solid var(--card-border); font-size: 10px;">
+                <strong style="color: var(--text-primary); display: block; margin-bottom: 4px;">📎 Attachments (1):</strong>
+                <table style="width: 100%; font-size: 9px; border-collapse: collapse;">
+                  <thead>
+                    <tr style="background: rgba(255,255,255,0.04);">
+                      <th style="text-align: left; padding: 3px 4px; border-bottom: 1px solid var(--card-border);">Name</th>
+                      <th style="text-align: right; padding: 3px 4px; border-bottom: 1px solid var(--card-border);">Size</th>
+                      <th style="text-align: left; padding: 3px 4px; border-bottom: 1px solid var(--card-border);">MD5</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td style="padding: 3px 4px;">eml2pdf.py</td>
+                      <td style="text-align: right; padding: 3px 4px;">37.8 KB</td>
+                      <td style="font-family: 'JetBrains Mono', monospace; color: var(--text-tertiary); padding: 3px 4px;">fa7d440a54cf11...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
 
-            <!-- Mock Body -->
-            <div style="font-size: 13px; color: var(--text-secondary); text-align: left; padding: 10px 0; line-height: 1.6;">
-              Hello Bob,<br><br>
-              Attached are the finalized source files and documentation index for the new high-fidelity EML-to-PDF archival engine project.
-            </div>
+          </div>
 
-            <!-- Mock Attachment Table -->
-            <div style="margin-top: 24px; padding-top: 12px; border-top: 2px solid var(--card-border); font-size: 11px; text-align: left;">
-              <strong style="color: var(--text-primary); display: block; margin-bottom: 6px;">📎 Attachments (2):</strong>
-              <table style="width: 100%; font-size: 10px; border-collapse: collapse;">
-                <thead>
-                  <tr style="background: rgba(255,255,255,0.04);">
-                    <th style="text-align: left; padding: 4px 6px; border-bottom: 1px solid var(--card-border);">Name</th>
-                    <th style="text-align: right; padding: 4px 6px; border-bottom: 1px solid var(--card-border);">Size</th>
-                    <th style="text-align: left; padding: 4px 6px; border-bottom: 1px solid var(--card-border);">MD5</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td style="padding: 4px 6px;">eml2pdf.py</td>
-                    <td style="text-align: right; padding: 4px 6px;">37.8 KB</td>
-                    <td style="font-family: var(--font-mono); color: var(--text-tertiary); padding: 4px 6px;">d52f297fa7d440a5...</td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 4px 6px;">pyproject.toml</td>
-                    <td style="text-align: right; padding: 4px 6px;">3.2 KB</td>
-                    <td style="font-family: var(--font-mono); color: var(--text-tertiary); padding: 4px 6px;">fa7d440d52f297fa...</td>
-                  </tr>
-                </tbody>
-              </table>
+          <!-- The 'Before' state: Fragmented EML file contents -->
+          <div class="split-pane before">
+            <div class="pane-label before" style="top: 1.25rem; bottom: auto;">
+              <i class="fas fa-envelope"></i>
+              RAW MIME EML FILE
+            </div>
+            
+            <div style="width: 100%; max-width: 500px; border: 1px solid rgba(255, 107, 107, 0.2); border-radius: 8px; background: rgba(255, 107, 107, 0.02); padding: 16px; font-size: 11px; text-align: left; font-family: 'JetBrains Mono', monospace; color: var(--text-secondary);">
+              Content-Type: multipart/mixed; boundary="----------"<br>
+              Subject: Weekly Architectural Ingest Newsletter<br>
+              From: alice@example.com<br>
+              To: bob@example.com<br>
+              Date: Sat, 23 May 2026 15:28:00 -0400<br><br>
+              ------------<br>
+              Content-Type: text/html; charset="utf-8"<br><br>
+              &lt;html&gt;&lt;body&gt;&lt;script&gt;track()&lt;/script&gt;&lt;p&gt;Hello Team...
             </div>
 
           </div>
@@ -1520,29 +1482,29 @@
       <div class="showcase-meta reveal">
         <div class="meta-card">
           <div class="meta-icon" style="color: var(--mint);">
-            <i class="fas fa-code"></i>
+            <i class="fas fa-shield-halved"></i>
           </div>
           <div class="meta-text">
-            <div class="meta-title">Sanitized Views</div>
-            <div class="meta-desc">JS elements and tracker scripts are scrubbed from the HTML email frame automatically</div>
+            <div class="meta-title">JS Blocked</div>
+            <div class="meta-desc">All tracking hooks, event scopes, and scripts are cleanly decomposed before compilation</div>
           </div>
         </div>
         <div class="meta-card">
           <div class="meta-icon" style="color: var(--blue);">
-            <i class="fas fa-key"></i>
+            <i class="fas fa-image"></i>
           </div>
           <div class="meta-text">
-            <div class="meta-title">MD5 Verification</div>
-            <div class="meta-desc">Authenticity table records exact file sizes and cryptographic MD5 checksums for auditing</div>
+            <div class="meta-title">Base64 CID</div>
+            <div class="meta-desc">MIME inline graphic attachments are fully embedded as offline Base64 vector streams</div>
           </div>
         </div>
         <div class="meta-card">
           <div class="meta-icon" style="color: var(--purple);">
-            <i class="fas fa-lock"></i>
+            <i class="fas fa-clipboard-check"></i>
           </div>
           <div class="meta-text">
-            <div class="meta-title">MIME Base64 CID</div>
-            <div class="meta-desc">All local multimedia and inline graphics are fully embedded into the PDF for offline portability</div>
+            <div class="meta-title">Audit Manifest</div>
+            <div class="meta-desc">The generated PDF embeds a secure verification list tracking file sizes and MD5 checksums</div>
           </div>
         </div>
       </div>
@@ -1560,41 +1522,52 @@
         <div class="footer-tagline">Premium high-fidelity EML-to-PDF archival engine.</div>
         <div class="footer-copy">&copy; 2026 <a href="https://github.com/mbettan">Michaël BETTAN</a>. Distributed under the MIT License.</div>
       </div>
+
       <div class="footer-links">
-        <a href="https://github.com/mbettan/eml2pdf" target="_blank" rel="noopener" class="footer-link">
-          <i class="fab fa-github"></i> GitHub
+        <a href="https://github.com/mbettan/eml2pdf" class="footer-link" target="_blank" rel="noopener">
+          <i class="fab fa-github"></i>
+          GitHub Repository
+        </a>
+        <a href="#top" class="footer-link">
+          <i class="fas fa-arrow-up"></i>
+          Back to Top
         </a>
       </div>
     </div>
   </footer>
 
+  <!-- ░░ SCROLL REVEAL SCRIPT ░░ -->
   <script>
-    // ── Navbar scroll state ──────────────────────────────
+    const reveals = document.querySelectorAll('.reveal');
     const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 50);
-    }, { passive: true });
 
-    // ── Scroll-reveal via IntersectionObserver ───────────
-    const revealEls = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+    function handleScroll() {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+
+      const windowHeight = window.innerHeight;
+      reveals.forEach(el => {
+        const elementTop = el.getBoundingClientRect().top;
+        const elementVisible = 100;
+        if (elementTop < windowHeight - elementVisible) {
+          el.classList.add('visible');
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    }
 
-    revealEls.forEach(el => observer.observe(el));
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial trigger
 
-    // ── Stagger bento cards ──────────────────────────────
+    // Stagger bento cards
     const bentos = document.querySelectorAll('.bento');
     bentos.forEach((b, i) => {
       b.style.transitionDelay = `${i * 0.07}s`;
     });
 
-    // ── Stagger pipeline nodes ───────────────────────────
+    // Stagger pipeline nodes
     const pipes = document.querySelectorAll('.pipe-node');
     pipes.forEach((p, i) => {
       p.style.opacity = '0';
